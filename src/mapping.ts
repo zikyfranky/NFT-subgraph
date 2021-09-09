@@ -1,20 +1,22 @@
-import { Address, BigInt, store } from '@graphprotocol/graph-ts'
-import { URI } from '../generated/Rarible/ERC1155'
+import { Address, BigInt, store, Bytes } from '@graphprotocol/graph-ts'
+import { URI } from '../generated/ERC1155/ERC1155'
 import { ERC721, Transfer } from '../generated/templates/NftContract/ERC721'
+import { ERC721Metadata } from '../generated/templates/NftContract/ERC721Metadata'
 import { Nft, Ownership } from '../generated/schema'
 import { BIGINT_ONE, BIGINT_ZERO, ZERO_ADDRESS } from './constants'
+import { ERC1155 } from '../generated/ERC1155/ERC1155'
 
 export function handleTransfer (event: Transfer): void {
   let address = event.address.toHexString()
-  let nftId = address + '/' + event.params.id.toString()
-  let contract = ERC721.bind(event.address)
+  let nftId = address + '/' + event.params.tokenId.toString()
+  let contract = ERC721Metadata.bind(event.address)
   let nft = Nft.load(nftId)
   if (nft == null) {
     nft = new Nft(nftId)
     nft.contract = address
-    nft.tokenID = event.params.id
+    nft.tokenID = event.params.tokenId
 
-    let metadataURI = contract.try_tokenURI(event.params.id)
+    let metadataURI = contract.try_tokenURI(event.params.tokenId)
     if (!metadataURI.reverted) {
       nft.tokenURI = normalize(metadataURI.value)
     } else {
@@ -37,7 +39,7 @@ export function handleTransfer (event: Transfer): void {
 }
 
 export function fetchName (tokenAddress: Address): string {
-  let contract = ERC721.bind(tokenAddress)
+  let contract = ERC721Metadata.bind(tokenAddress)
   let name = contract.try_name()
   if (!name.reverted) {
     return normalize(name.value)
@@ -47,7 +49,7 @@ export function fetchName (tokenAddress: Address): string {
 }
 
 export function fetchSymbol (tokenAddress: Address): string {
-  let contract = ERC721.bind(tokenAddress)
+  let contract = ERC721Metadata.bind(tokenAddress)
   let symbol = contract.try_symbol()
   if (!symbol.reverted) {
     return normalize(symbol.value)
@@ -85,6 +87,15 @@ export function updateOwnership (
   }
 }
 
+export function supportsInterfaceErc721 (
+  contract: ERC721,
+  interfaceId: String,
+  expected: boolean = true
+): boolean {
+  let supports = contract.try_supportsInterface(toBytes(interfaceId))
+  return !supports.reverted && supports.value == expected
+}
+
 export function normalize (strValue: string): string {
   if (strValue.length === 1 && strValue.charCodeAt(0) === 0) {
     return ''
@@ -101,4 +112,12 @@ export function normalize (strValue: string): string {
 export function setCharAt (str: string, index: i32, char: string): string {
   if (index > str.length - 1) return str
   return str.substr(0, index) + char + str.substr(index + 1)
+}
+
+export function toBytes (hexString: String): Bytes {
+  let result = new Uint8Array(hexString.length / 2)
+  for (let i = 0; i < hexString.length; i += 2) {
+    result[i / 2] = parseInt(hexString.substr(i, 2), 16) as u32
+  }
+  return result as Bytes
 }

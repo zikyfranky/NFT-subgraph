@@ -17,7 +17,9 @@ dataSources:
         - Nft
       abis:
         - name: ERC1155
-          file: ./abis/ERC1155.json
+          file: ./abis/IERC1155.json
+        - name: ERC1155Metadata
+          file: ./abis/IERC1155MetadataURI.json
       eventHandlers:
         - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
           handler: handleTransferBatchErc1155
@@ -41,9 +43,11 @@ dataSources:
         - Nft
       abis:
         - name: ERC721
-          file: ./abis/ERC721.json
+          file: ./abis/IERC721.json
+        - name: ERC721Metadata
+          file: ./abis/IERC721Metadata.json
       eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
+        - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransferErc721
       file: ./src/mapping-generic-erc721.ts
 
@@ -62,7 +66,9 @@ templates:
         - Nft
       abis:
         - name: ERC721
-          file: ./abis/ERC721.json
+          file: ./abis/IERC721.json
+        - name: ERC721Metadata
+          file: ./abis/IERC721Metadata.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransferErc721

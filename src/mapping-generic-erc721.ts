@@ -1,13 +1,38 @@
-import { Transfer } from '../generated/templates/NftContract/ERC721'
+import { ERC721, Transfer } from '../generated/templates/NftContract/ERC721'
 import { Nft, NftContract } from '../generated/schema'
-import { fetchName, fetchSymbol, handleTransfer } from './mapping'
-import { SuperRare } from '../generated/SuperRare/SuperRare'
-import { SuperRareV2 } from '../generated/SuperRareV2/SuperRareV2'
-import { SUPERRARE, SUPERRARE_V2, ZERO_ADDRESS } from './constants'
+import {
+  fetchName,
+  fetchSymbol,
+  handleTransfer,
+  supportsInterfaceErc721
+} from './mapping'
+import { ZERO_ADDRESS } from './constants'
 import { Address, BigInt, log } from '@graphprotocol/graph-ts'
 
 export function handleTransferErc721 (event: Transfer): void {
   let address = event.address.toHexString()
+  let contract = ERC721.bind(event.address)
+  let supportsEIP165Identifier = supportsInterfaceErc721(contract, '01ffc9a7')
+  let supportsEIP721Identifier = supportsInterfaceErc721(contract, '80ac58cd')
+  let supportsNullIdentifierFalse = supportsInterfaceErc721(
+    contract,
+    '00000000',
+    false
+  )
+  let supportsEIP721 =
+    supportsEIP165Identifier &&
+    supportsEIP721Identifier &&
+    supportsNullIdentifierFalse
+
+  let supportsEIP721Metadata = false
+  if (supportsEIP721) {
+    supportsEIP721Metadata = supportsInterfaceErc721(contract, '5b5e139f')
+    // log.error('NEW CONTRACT eip721Metadata for {} : {}', [event.address.toHex(), supportsEIP721Metadata ? 'true' : 'false']);
+  }
+  if (!supportsEIP721) {
+    return
+  }
+
   if (NftContract.load(address) == null) {
     let nftContract = new NftContract(address)
     nftContract.name = fetchName(event.address)
@@ -17,7 +42,7 @@ export function handleTransferErc721 (event: Transfer): void {
 
   handleTransfer(event)
 
-  let id = address + '/' + event.params.id.toString()
+  let id = address + '/' + event.params.tokenId.toString()
   let nft = Nft.load(id)
   if (nft.creatorAddress == null) {
     nft.creatorAddress = event.params.to
