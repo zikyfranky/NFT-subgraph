@@ -6,12 +6,12 @@ import { handleTransferBatch, handleTransferSingle, handleURI } from "./mappings
 
 export { handleURI };
 
-export function handleTransferSingleRarible(event: TransferSingle): void {
+export function handleTransferSingleErc1155(event: TransferSingle): void {
   ensureNftContract(event.address);
   handleTransferSingle(event);
 }
 
-export function handleTransferBatchRarible(event: TransferBatch): void {
+export function handleTransferBatchErc1155(event: TransferBatch): void {
   ensureNftContract(event.address);
   handleTransferBatch(event);
 }
@@ -21,7 +21,6 @@ function ensureNftContract(address: Address): void{
     let nftContract = new NftContract(address.toHexString());
     nftContract.name = fetchName(address);
     nftContract.symbol = fetchSymbol(address);
-    nftContract.platform = "Rarible";
     nftContract.save();
   }
 }

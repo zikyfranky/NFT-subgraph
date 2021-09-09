@@ -14,7 +14,6 @@ type NftContract @entity {
   id: ID!
   name: String!
   symbol: String
-  platform: Platform!
   nfts: [Nft!]! @derivedFrom(field: "contract")
 }
 
@@ -25,12 +24,3 @@ type Ownership @entity {
   quantity: BigInt!
 }
 
-enum Platform {
-  KnownOrigin
-  NiftyGateway
-  Zora
-  Rarible
-  SuperRare
-  Meme
-  Sorare
-}
