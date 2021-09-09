@@ -18,7 +18,7 @@ export { handleURI }
 export function handleTransferSingleErc1155 (event: TransferSingle): void {
   let address = event.address.toHexString()
   let contract = ERC1155.bind(event.address)
-  let supportsEIP1155 = supportsInterfaceErc1155(contract, '0xd9b67a26')
+  let supportsEIP1155 = supportsInterfaceErc1155(contract, 'd9b67a26')
 
   if (!supportsEIP1155) {
     return

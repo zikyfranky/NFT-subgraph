@@ -73,7 +73,7 @@ function transferBase (
     nft = new Nft(nftId)
     nft.contract = contractAddress.toHexString()
     nft.tokenID = id
-    if (supportsInterfaceErc1155(contract, '0x0e89341c')) {
+    if (supportsInterfaceErc1155(contract, '0e89341c')) {
       let contractMetadata = ERC1155Metadata.bind(contractAddress)
       let metadataURI = contractMetadata.try_uri(id)
       if (!metadataURI.reverted) {
