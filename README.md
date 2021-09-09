@@ -1,4 +1,4 @@
-# Cryptomedia subgraph
+# Generic NFT standard subgraph
 
 > All ERC721/ERC1155 NFTs in one subgraph
 
