@@ -1,6 +1,6 @@
 # Cryptomedia subgraph
 
-> All cryptomedia NFTs in one subgraph
+> All ERC721/ERC1155 NFTs in one subgraph
 
 More about subgraphs and The Graph protocol you can find [here](https://thegraph.com/docs/introduction).
 
@@ -9,20 +9,49 @@ More about subgraphs and The Graph protocol you can find [here](https://thegraph
 - Query created NFTs by address
 - Query owned NFTs by address
 - Query NFT metadata by NFT
-- Query per platform
-- Have all platforms smart contracts integrated 
-
-The challenge is to be able to pull from:
-- [x] [Rarible](https://rarible.com/)
-- [x] [Superrare](https://www.superrare.co/)
-- [x] [Known Origin](https://knownorigin.io/)
-- [x] [Nifty Gateway](https://niftygateway.com/)
-- [x] [Zora](https://zora.co/)
-- [ ] [Foundation](https://foundation.app/)
-- [x] [Meme](https://dontbuymeme.com/)
-- [x] [Sorare](https://sorare.com/)
 
 And having an open GitHub so anyone can PR new smart contracts associated with those platforms.
+
+Can be deployed to any supported network, change the `network:` parameter in `subgraph.yaml` to one of the following:
+
+```
+1. Ethereum Mainnet -> mainnet
+2. Kovan -> kovan
+3. Rinkeby -> rinkeby
+4. Ropsten -> ropsten
+5. Goerli -> goerli
+6. POA-Core -> poa-core
+7. POA-Sokol -> poa-sokol
+8. xDAI -> xdai
+9. Matic -> matic
+10. Mumbai (Matic’s testnet) -> mumbai
+11. Fantom -> fantom
+12. Binance Smart Chain -> bsc
+13. Binance Smart Chain Testnet -> chapel
+14. Clover -> clover
+15. Avalanche -> avalanche
+16. Celo -> celo
+17. Celo's testnet (Alfajores) -> celo-alfajores
+18. Fuse -> fuse
+19. Moonbeam -> mbase
+20. Arbitrum Testnet -> arbitrum-testnet-v5
+21. Arbitrum One -> arbitrum-one
+```
+
+Instructions:
+1. install the graph cli with npm:
+```npm install -g @graphprotocol/graph-cli```
+or with yarn
+```yarn global add @graphprotocol/graph-cli```
+
+2. authenticate within the cli:
+```graph auth  --studio **YOUR_DEPLOY_KEY_HERE**```
+
+3. build the graph
+```graph codegen && graph build```
+
+4. deploy
+```graph deploy --studio **YOUR_SUBGRAPH_SLUG_NAME_HERE**```
 
 ## Useful resources
 
