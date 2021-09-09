@@ -1,10 +1,8 @@
 import { Address, BigInt, store, Bytes } from '@graphprotocol/graph-ts'
-import { URI } from '../generated/ERC1155/ERC1155'
 import { ERC721, Transfer } from '../generated/templates/NftContract/ERC721'
 import { ERC721Metadata } from '../generated/templates/NftContract/ERC721Metadata'
 import { Nft, Ownership } from '../generated/schema'
 import { BIGINT_ONE, BIGINT_ZERO, ZERO_ADDRESS } from './constants'
-import { ERC1155 } from '../generated/ERC1155/ERC1155'
 
 export function handleTransfer (event: Transfer): void {
   let address = event.address.toHexString()

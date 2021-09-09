@@ -4,13 +4,13 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ERC1155
-    network: mainnet
+    network: matic
     source:
       abi: ERC1155
       # eth start block
-      startBlock: 3800000
+      # startBlock: 3800000
       # polygon/matic start block
-      # startBlock: 1593713
+      startBlock: 1555120
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -23,6 +23,10 @@ dataSources:
           file: ./abis/IERC1155.json
         - name: ERC1155Metadata
           file: ./abis/IERC1155MetadataURI.json
+        - name: ERC721
+          file: ./abis/IERC721.json
+        - name: ERC721Metadata
+          file: ./abis/IERC721Metadata.json
       eventHandlers:
         - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
           handler: handleTransferBatchErc1155
@@ -33,13 +37,13 @@ dataSources:
       file: ./src/mapping-generic-erc1155.ts
   - kind: ethereum/contract
     name: ERC721
-    network: mainnet
+    network: matic
     source:
       abi: ERC721
       # eth start block
-      startBlock: 3800000
+      # startBlock: 3800000
       # polygon/matic start block
-      # startBlock: 1593713
+      startBlock: 1555120
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -60,7 +64,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: NftContract
-    network: mainnet
+    network: matic
     source:
       abi: ERC721
     mapping:
