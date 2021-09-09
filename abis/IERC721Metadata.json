@@ -1,5 +1,5 @@
 {
-  "contractName": "IERC721Metadata",
+  "contractName": "ERC721Metadata",
   "abi": [
     {
       "anonymous": false,

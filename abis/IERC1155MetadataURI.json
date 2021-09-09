@@ -1,5 +1,5 @@
 {
-  "contractName": "IERC1155MetadataURI",
+  "contractName": "ERC1155MetadataURI",
   "abi": [
     {
       "anonymous": false,

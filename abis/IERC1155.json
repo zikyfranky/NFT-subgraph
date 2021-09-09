@@ -1,5 +1,5 @@
 {
-  "contractName": "IERC1155",
+  "contractName": "ERC1155",
   "abi": [
     {
       "anonymous": false,

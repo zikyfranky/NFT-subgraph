@@ -7,7 +7,10 @@ dataSources:
     network: mainnet
     source:
       abi: ERC1155
-      # startBlock: 5806610
+      # eth start block
+      startBlock: 3800000
+      # polygon/matic start block
+      # startBlock: 1593713
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -33,7 +36,10 @@ dataSources:
     network: mainnet
     source:
       abi: ERC721
-      # startBlock: 5806610
+      # eth start block
+      startBlock: 3800000
+      # polygon/matic start block
+      # startBlock: 1593713
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
