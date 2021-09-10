@@ -8,7 +8,7 @@ dataSources:
     source:
       abi: ERC1155
       # eth start block
-      # startBlock: 3914495
+      startBlock: 5806610
       # polygon/matic start block
       # startBlock: 1555120
     mapping:
@@ -41,7 +41,7 @@ dataSources:
     source:
       abi: ERC721
       # eth start block
-      startBlock: 3914495
+      startBlock: 5806610
       # polygon/matic start block
       # startBlock: 1555120
     mapping:
