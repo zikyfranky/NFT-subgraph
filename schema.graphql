@@ -13,6 +13,7 @@ type Nft @entity {
 type NftContract @entity {
   id: ID!
   name: String!
+  type: String!
   symbol: String
   nfts: [Nft!]! @derivedFrom(field: "contract")
 }

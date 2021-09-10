@@ -38,6 +38,7 @@ function ensureNftContract (address: Address): void {
     let nftContract = new NftContract(address.toHexString())
     nftContract.name = fetchName(address)
     nftContract.symbol = fetchSymbol(address)
+    nftContract.type = "ERC1155"
     nftContract.save()
   }
 }

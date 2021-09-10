@@ -37,6 +37,7 @@ export function handleTransferErc721 (event: Transfer): void {
     let nftContract = new NftContract(address)
     nftContract.name = fetchName(event.address)
     nftContract.symbol = fetchSymbol(event.address)
+    nftContract.type = "ERC721"
     nftContract.save()
   }
 
