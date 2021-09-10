@@ -12,6 +12,10 @@ More about subgraphs and The Graph protocol you can find [here](https://thegraph
 
 And having an open GitHub so anyone can PR new smart contracts associated with those platforms.
 
+Also now supports the following popular non-standard NFTs:
+- CryptoPunks (ethereum)
+- CryptoKitties (ethereum)
+
 Can be deployed to any supported network, change the `network:` parameter in `subgraph.yaml` to one of the following:
 
 ```
