@@ -1,4 +1,4 @@
-import { Address, BigInt, store, Bytes } from '@graphprotocol/graph-ts'
+import { Address, BigInt, store, Bytes, log } from '@graphprotocol/graph-ts'
 import { ERC721, Transfer } from '../generated/templates/NftContract/ERC721'
 import { ERC721Metadata } from '../generated/templates/NftContract/ERC721Metadata'
 import { Nft, Ownership } from '../generated/schema'
@@ -73,11 +73,10 @@ export function updateOwnership (
 
   let newQuantity = ownership.quantity.plus(deltaQuantity)
 
-  // if (newQuantity.lt(BIGINT_ZERO)) {
-  //   throw new Error('Negative token quantity')
-  // }
-
-  if (newQuantity.isZero()) {
+  if (newQuantity.lt(BIGINT_ZERO)) {
+    log.error('Negative token quantity: ' + newQuantity.toString(), [])
+    store.remove('Ownership', ownershipId)
+  } else if (newQuantity.isZero()) {
     store.remove('Ownership', ownershipId)
   } else {
     ownership.quantity = newQuantity

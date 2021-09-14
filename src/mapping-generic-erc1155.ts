@@ -16,11 +16,10 @@ import {
 export { handleURI }
 
 export function handleTransferSingleErc1155 (event: TransferSingle): void {
-  let address = event.address.toHexString()
-  let contract = ERC1155.bind(event.address)
-  let supportsEIP1155 = supportsInterfaceErc1155(contract, 'd9b67a26')
-
-  if (!supportsEIP1155) {
+  if (
+    NftContract.load(event.address.toHexString()) == null &&
+    !supportsInterfaceErc1155(ERC1155.bind(event.address), 'd9b67a26')
+  ) {
     return
   }
 
@@ -29,6 +28,13 @@ export function handleTransferSingleErc1155 (event: TransferSingle): void {
 }
 
 export function handleTransferBatchErc1155 (event: TransferBatch): void {
+  if (
+    NftContract.load(event.address.toHexString()) == null &&
+    !supportsInterfaceErc1155(ERC1155.bind(event.address), 'd9b67a26')
+  ) {
+    return
+  }
+
   ensureNftContract(event.address)
   handleTransferBatch(event)
 }
@@ -38,7 +44,7 @@ function ensureNftContract (address: Address): void {
     let nftContract = new NftContract(address.toHexString())
     nftContract.name = fetchName(address)
     nftContract.symbol = fetchSymbol(address)
-    nftContract.type = "ERC1155"
+    nftContract.type = 'ERC1155'
     nftContract.save()
   }
 }
