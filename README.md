@@ -2,7 +2,7 @@
 
 > All ERC721/ERC1155 NFTs in one subgraph
 
-More about subgraphs and The Graph protocol you can find [here](https://thegraph.com/docs/introduction).
+More about subgraphs and The Graph protocol you can find [here](https://youtu.be/jxhNsSicEzA) and [here](https://thegraph.com/docs/introduction).
 
 ### Deliverables for the NFT subgraph:
 
@@ -11,10 +11,6 @@ More about subgraphs and The Graph protocol you can find [here](https://thegraph
 - Query NFT metadata by NFT
 
 And having an open GitHub so anyone can PR new smart contracts associated with those platforms.
-
-Also now supports the following popular non-standard NFTs:
-- CryptoPunks (ethereum)
-- CryptoKitties (ethereum)
 
 Can be deployed to any supported network, change the `network:` parameter in `subgraph.yaml` to one of the following:
 
@@ -43,19 +39,20 @@ Can be deployed to any supported network, change the `network:` parameter in `su
 ```
 
 Instructions:
-1. install the graph cli with npm:
-```npm install -g @graphprotocol/graph-cli```
-or with yarn
-```yarn global add @graphprotocol/graph-cli```
+
+1. install dependencies with npm:
+   `npm install`
+   or with yarn
+   `yarn`
 
 2. authenticate within the cli:
-```graph auth  --studio **YOUR_DEPLOY_KEY_HERE**```
+   `graph auth --product hosted-service <ACCESS_TOKEN>`
 
 3. build the graph
-```graph codegen && graph build```
+   `graph codegen && graph build`
 
 4. deploy
-```graph deploy --studio **YOUR_SUBGRAPH_SLUG_NAME_HERE**```
+   `graph deploy <ACCESS_TOKEN>`
 
 ## Useful resources
 
